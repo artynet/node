@@ -99,6 +99,7 @@ static void uv__getaddrinfo_work(struct uv__work* w) {
   int err;
 
   req = container_of(w, uv_getaddrinfo_t, work_req);
+  req->hints->ai_flags &= ~AI_V4MAPPED;
   err = getaddrinfo(req->hostname, req->service, req->hints, &req->addrinfo);
   req->retcode = uv__getaddrinfo_translate_error(err);
 }
