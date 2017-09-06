@@ -612,7 +612,7 @@
       ],
 
       'conditions': [
-        ['v8_inspector=="true"', {
+        ['v8_inspector=="true" and node_use_openssl =="true"', {
           'sources': [
             'test/cctest/test_inspector_socket.cc',
           ],
