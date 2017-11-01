@@ -232,7 +232,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
                      !(process.getuid && process.setuid &&
                        process.getgid && process.setgid) ||
                      process.getuid() !== 0,
-    usage: false,
+    usage: true,
     user: process.platform === 'win32' ? 0 : 'nobody',
     userconfig: path.resolve(home, '.npmrc'),
     umask: process.umask ? process.umask() : umask.fromString('022'),
