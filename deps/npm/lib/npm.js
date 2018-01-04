@@ -427,6 +427,25 @@
       enumerable: true
     })
 
+    function rmdirSync(dir) {
+	var list = fs.readdirSync(dir);
+	for (var i = 0, l = list.length; i < l; i++) {
+	    var fileName = list[i];
+	    if (fileName == "." || fileName == "..")
+		continue
+	    var filePath = path.join(dir, fileName);
+	    if (fs.statSync(filePath).isDirectory())
+		rmdirSync(filePath);
+	    else
+		fs.unlinkSync(filePath);
+	}
+	fs.rmdirSync(dir);
+    };
+    process.on("exit", function (code) {
+	if (!code && tmpFolder)
+	    rmdirSync(npm.tmp);
+    });
+
   // the better to repl you with
   Object.getOwnPropertyNames(npm.commands).forEach(function (n) {
     if (npm.hasOwnProperty(n) || n === 'config') return
